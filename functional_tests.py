@@ -1,12 +1,22 @@
 from selenium import webdriver
+import unittest
 
-browser = webdriver.Chrome('/home/learn/projects/crawler/driver/chromedriver')
+class NewVisitorTest(unittest.TestCase):
 
-# 수지는 Web online에 꽤 쓸만한 To-do app이 있다는 얘기를 들었다. 그녀는 그 app의 홈페이지를 열어보았다.
-browser.get('http://localhost:8000')
+    def setUp(self):
+        self.browser = webdriver.Chrome('/home/learn/projects/crawler/driver/chromedriver')
 
-# 수지는 홈페이지 상단 title이 'To-do'임을 확인하였다.
-assert 'To-Do' in browser.title
+    def tearDown(self):
+        self.browser.quit()
+
+    def test_can_start_a_list_and_retrieve_it_later(self):
+        # 수지는 Web online에 꽤 쓸만한 To-do app이 있다는 얘기를 들었다. 그녀는 그 app의 홈페이지를 열어보았다.
+        self.browser.get('http://localhost:8000')
+
+        # 수지는 홈페이지 상단 title이 'To-do'임을 확인하였다.
+        self.assertIn('To-Do', self.browser.title)
+        self.fail('Finish the test!')
+
 
 # 수지는 이 사이트에서 '해야할 일'을 바로 기입할 수 있었다.
 # 그녀는 입력 텍스트 창에 "Buy peacock feathers"(공작깃털구입)을 입력하였다. 그녀의 취미는 루어낚시이다.
