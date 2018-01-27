@@ -33,4 +33,8 @@ class NewVisitorTest(unittest.TestCase):
 
 # 수지는 이에 만족하며 잠에 들었다.
 
-browser.quit()
+        self.browser.quit()
+
+
+if __name__ == '__main__':
+    unittest.main(warnings='ignore')
