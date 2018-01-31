@@ -27,26 +27,33 @@ class NewVisitorTest(unittest.TestCase):
         )
         # 그녀는 입력 텍스트 창에 "Buy peacock feathers"(공작깃털구입)을 입력하였다. 그녀의 취미는 루어낚시이다.
         inputbox.send_keys('Buy peacock feathers')
+        time.sleep(1)
         # 수지가 엔터를 누르자 페이지가 갱신되면서, "1: Buy peacock feathers"라는 항목이 to-do list에 나타난다.
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(1)
+        time.sleep(2)
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: Buy peacock feathers' for row in rows)
-        )
+        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
         # 페이지가 갱신되더라도 텍스트 입력창에 다른 할 일 항목을 기입할 수 있으므로, 수지는 "Use peacock feathers to make a fly"라고 입력하고 엔터를 친다.
-        self.fail('Finish the test!')
-
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('Use peacock feathers to make a fly')
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(3)
         # 그러자 페이지가 다시 갱신되고, to-do 목록에 위 2개의 항목이 입력되다.
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+        self.assertIn('2: Use peacock feathers to make a fly',
+                      [row.text for row in rows])
+        time.sleep(3)
 
 # 수지는 이 사이트가 그녀가 입력한 to-do 목록을 기억하고 있는지 궁금하였다. 이 사이트는 그녀의 to-do목록을 위한 고유 URL을 생성하였고 이에 대한 설명문이 있다.
-
+        self.fail('Finish the test!')
 # 수지는 위 고유 URL을 방문하여 그녀의 to-do목록을 본다.
 
 # 수지는 이에 만족하며 잠에 들었다.
 
-        self.browser.quit()
+        # self.browser.quit()
 
 
 if __name__ == '__main__':
