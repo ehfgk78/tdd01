@@ -1,9 +1,9 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
-import unittest
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Chrome('/home/learn/projects/crawler/driver/chromedriver')
@@ -18,7 +18,8 @@ class NewVisitorTest(unittest.TestCase):
 
     def test_can_start_a_list_and_retrieve_it_later(self):
         # 수지는 Web online에 꽤 쓸만한 To-do app이 있다는 얘기를 들었다. 그녀는 그 app의 홈페이지를 열어보았다.
-        self.browser.get('http://localhost:8000')
+        # self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
 
         # 수지는 홈페이지 상단 title이 'To-do'임을 확인하였다.
         self.assertIn('To-Do', self.browser.title)
@@ -56,5 +57,5 @@ class NewVisitorTest(unittest.TestCase):
         # self.browser.quit()
 
 
-if __name__ == '__main__':
-    unittest.main(warnings='ignore')
+# if __name__ == '__main__':
+#     unittest.main(warnings='ignore')
