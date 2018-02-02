@@ -57,6 +57,7 @@ class NewVisitorTest(LiveServerTestCase):
         # 그러자 페이지가 다시 갱신되고, to-do 목록에 위 2개의 항목이 입력되다.
         self.wait_for_row_in_list_table('1: Buy peacock feathers')
         self.wait_for_row_in_list_table('2: Use peacock feathers to make a fly')
+        time.sleep(5)
 
 
 # 수지는 이 사이트가 그녀가 입력한 to-do 목록을 기억하고 있는지 궁금하였다. 이 사이트는 그녀의 to-do목록을 위한 고유 URL을 생성하였고 이에 대한 설명문이 있다.
@@ -93,6 +94,7 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys('Buy milk')
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1: Buy milk')
+        time.sleep(10)
         # 길동은 자신의 리스트에 대한 고유의 URL을 확인한다.
         gilDong_list_url = self.browser.current_url
         self.assertRegex(gilDong_list_url, '/lists/.+')
